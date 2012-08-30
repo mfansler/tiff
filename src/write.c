@@ -57,7 +57,7 @@ SEXP write_tiff(SEXP image, SEXP where, SEXP sBPS, SEXP sCompr, SEXP sReduce) {
 	const char *fn;
 	if (TYPEOF(where) != STRSXP || LENGTH(where) < 1) Rf_error("invalid filename");
 	fn = CHAR(STRING_ELT(where, 0));
-	f = fopen(fn, "wb");
+	f = fopen(fn, "w+b");
 	if (!f) Rf_error("unable to create %s", fn);
 	rj.f = f;
     }
@@ -205,15 +205,14 @@ SEXP write_tiff(SEXP image, SEXP where, SEXP sBPS, SEXP sCompr, SEXP sReduce) {
 		for (y = 0; y < height; y++)
 		    for (x = 0; x < width; x++)
 			for (pl = 0; pl < planes; pl++)
-			    data16[(x + y * width) * planes + pl] = (unsigned char) (ra[y + x * height + pl * width * height] * 65535.0);
+			    data16[(x + y * width) * planes + pl] = (unsigned short) (ra[y + x * height + pl * width * height] * 65535.0);
 	    TIFFWriteEncodedStrip(tiff, 0, buf, width * height * planes * (bps / 8));
 	    _TIFFfree(buf);
 	}
 
-	if (!img_list)
-	    break;
-	else if (img_index < n_img)
+	if (img_list && img_index < n_img)
 	    TIFFWriteDirectory(tiff);
+	else break;
     }
     if (!rj.f) {
 	SEXP res;

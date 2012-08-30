@@ -1,5 +1,19 @@
 NEWS/Changelog
 
+0.1-2	2012-08-30
+    o	fixed a bug in writeTIFF() for 16-bit images
+
+
+0.1-1	2012-08-24
+    o	add readTIFF(..., indexed=TRUE) which return indexed images as
+	color map and an index matrix.
+
+    o	fixed a bug in writing a TIFF file consisting of multiple
+	subimages
+
+    o	prevent TIFF from re-entering error calls
+
+
 0.1-0	2012-08-04
     o	first CRAN release
 
