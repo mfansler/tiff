@@ -1,6 +1,6 @@
-1de6fbae4d0df4a1acec3683b2d4275c *DESCRIPTION
+c3719e51414808ba8a7d02db0f6eda8b *DESCRIPTION
 c5cd9fade03f932b1269addafcb3331e *NAMESPACE
-21929772ddbfd92b9abae9dcba1627b9 *NEWS
+b3a3333b24eff8a5c0af8bb52d155b9a *NEWS
 ec9fcd3f410b2bcfead19d9bf76278fb *R/read.R
 cb8492a3c34c2d383a0dda887727d108 *R/write.R
 e81a493d145e1be54feea75761f97022 *configure.win
@@ -11,5 +11,5 @@ bf85e1d4645fb00fa2db4da1f284a34d *src/Makevars
 31ef274798e4f16419457f854954b702 *src/Makevars.win
 11d9a3f6675a230bcc0d336003c89a55 *src/common.c
 ca1d1edf6d0f3392afcb3d6ec20c43cc *src/common.h
-a689a88ef7242d9d0cada32f7edad4a9 *src/read.c
+bf8d5f0e45f3e7d061a857e644c3370b *src/read.c
 79c7660fa06c1d0cd281fead08d98835 *src/write.c
