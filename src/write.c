@@ -182,8 +182,13 @@ SEXP write_tiff(SEXP image, SEXP where, SEXP sBPS, SEXP sCompr, SEXP sReduce) {
 	    unsigned char *data8;
 	    unsigned short *data16;
 	    unsigned int *data32;
-	    float *dataf;
 	    double *ra = REAL(image);
+	    uint32 i, N = LENGTH(image);
+	    for (i = 0; i < N; i++) /* do a pre-flight check */
+		if (ra[i] < 0.0 || ra[i] > 1.0) {
+		    Rf_warning("The input contains values outside the [0, 1] range - storage of such values is undefined");
+		    break;
+		}
 	    TIFFSetField(tiff, TIFFTAG_BITSPERSAMPLE, bps);
 	    TIFFSetField(tiff, TIFFTAG_SAMPLESPERPIXEL, planes);
 	    TIFFSetField(tiff, TIFFTAG_ROWSPERSTRIP, height);
@@ -193,7 +198,6 @@ SEXP write_tiff(SEXP image, SEXP where, SEXP sBPS, SEXP sCompr, SEXP sReduce) {
 	    data8 = (unsigned char*) buf;
 	    data16 = (unsigned short*) buf;
 	    data32 = (unsigned int*) buf;
-	    dataf = (float*) buf;
 	    if (!buf)
 		Rf_error("cannot allocate output image buffer");
 	    if (bps == 8)
@@ -206,6 +210,11 @@ SEXP write_tiff(SEXP image, SEXP where, SEXP sBPS, SEXP sCompr, SEXP sReduce) {
 		    for (x = 0; x < width; x++)
 			for (pl = 0; pl < planes; pl++)
 			    data16[(x + y * width) * planes + pl] = (unsigned short) (ra[y + x * height + pl * width * height] * 65535.0);
+	    else if (bps == 32)
+		for (y = 0; y < height; y++)
+		    for (x = 0; x < width; x++)
+			for (pl = 0; pl < planes; pl++)
+			    data32[(x + y * width) * planes + pl] = (unsigned int) (ra[y + x * height + pl * width * height] * 4294967295.0);
 	    TIFFWriteEncodedStrip(tiff, 0, buf, width * height * planes * (bps / 8));
 	    _TIFFfree(buf);
 	}
