@@ -1,5 +1,5 @@
 Package: tiff
-Version: 0.1-5
+Version: 0.1-6
 Title: Read and write TIFF images
 Author: Simon Urbanek <Simon.Urbanek@r-project.org>
 Maintainer: Simon Urbanek <Simon.Urbanek@r-project.org>
@@ -8,7 +8,7 @@ Description: This package provides an easy and simple way to read, write and dis
 License: GPL-2 | GPL-3
 SystemRequirements: tiff and jpeg libraries
 URL: http://www.rforge.net/tiff/
-Packaged: 2013-09-03 22:15:56 UTC; svnuser
 NeedsCompilation: yes
+Packaged: 2020-10-22 03:50:26 UTC; svnuser
 Repository: CRAN
-Date/Publication: 2013-09-04 07:27:36
+Date/Publication: 2020-11-17 11:30:02 UTC
